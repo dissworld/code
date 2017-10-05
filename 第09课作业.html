@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		*{margin: 0;padding: 0;}
+		li{list-style: none;}
+		#box ul li{
+			padding-left: 50px;
+			height: 50px;
+			line-height: 50px;
+			font-size: 12px;
+			border-bottom: 1px solid red;
+		}
+		#box ul li span{
+			float: left;
+			
+		}
+		#box ul li input{
+			display: none;
+			margin-top: 15px;
+			float: left;
+		}
+		#box ul li p{
+			margin-top: 11px;
+			float: left;
+			width: 50px;
+			height: 25px;
+			background: #000;
+			color: #fff;
+			cursor: pointer;
+			text-align: center;
+			line-height: 25px;
+		}
+	</style>
+</head>
+<body>
+	<div id="box">
+		<ul>
+			<li>
+				<span>点击修改</span>
+				<input type="text" value="点击修改">
+				<p>修改</p>
+			</li>
+			<li>
+				<span>点击修改</span>
+				<input type="text" value="点击修改">
+				<p>修改</p>
+			</li>
+			<li>
+				<span>点击修改</span>
+				<input type="text" value="点击修改">
+				<p>修改</p>
+			</li>
+			<li>
+				<span>点击修改</span>
+				<input type="text" value="点击修改">
+				<p>修改</p>
+			</li>
+		</ul>
+	</div>
+	<script>
+		var oBox = document.getElementById("box"),
+			aSpan = oBox.querySelectorAll("ul li span"),
+			aInput = oBox.querySelectorAll("ul li input"),
+			aP = oBox.querySelectorAll("ul li p"),
+			length = aP.length;
+
+			for (var i = 0; i < length; i++) {
+				aP[i].index = i;
+			 	if (this.innerHTML === "修改") {
+			 		aInput[x].value = aSpan[x].innerHTML;
+			 		aSpan[x].style.display = "none";
+			 		aInput[x].style.display = "block";
+			 		this.innerHTML = "确认";
+			 	}else{
+			 		aSpan[x].innerHTML = aInput[x].value;
+			 		aSpan[x].style.display = "block";
+			 		aInput[x].style.display = "none";
+			 		this.innerHTML = "修改";
+			 	}
+			 } 
+			
+	</script>
+</body>
+</html>
