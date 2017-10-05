@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		#box
+		{
+			width: 400px;
+			height: 340px;
+			margin: 100px auto;
+		}
+		#box .btn
+		{
+			height: 30px;
+		}
+		#box .btn span
+		{
+			float: left;
+			width: 75px;
+			height: 30px;
+			margin-right: 5px;
+			font-size: 12px;
+			text-align: center;
+			line-height: 30px;
+			color: #fff;
+			background: #000;
+			cursor: pointer;
+		}
+		#box .btn span.active
+		{
+			background: #f60;
+		}
+		#box .banner  
+		{
+			position: relative;
+			width: 400px;
+			height: 300px;
+		}
+		#box .banner .pic
+		{
+			width: 100%;
+			height: 100%;
+		}
+		#box .banner .pic img
+		{
+			position: absolute;
+			left: 0;
+			top: 0;
+			width: 100%;
+			height: 100%;
+			display: none;
+		}
+		#box .banner p
+		{
+			position: absolute;
+			height: 25px;
+			margin: 0 auto;
+			background: rgba(0,0,0,.5);
+			color: #fff;
+			font-size: 12px;
+			text-align: center;
+			line-height: 25px;
+		}
+		#box .banner p.top
+		{
+			top: 0;
+			left: 0;
+			width: 100%;
+		}
+		#box .banner p.bottom
+		{
+			bottom: 0;
+			left: 0;
+			width: 100%;
+		}
+		#box .banner p.left
+		{
+			left: 0;
+			top: 50%;
+			width: 50px;
+			margin-top: -12.5px;
+			cursor: pointer;
+		}
+		#box .banner p.right
+		{
+			right: 0;
+			top: 50%;
+			width: 50px;
+			margin-top: -12.5px;
+			cursor: pointer;
+		}
+		#box .banner .pic img.show
+		{
+			display: block;
+		}
+	</style>
+</head>
+<body>
+	<div id="box">
+		<div class="btn">
+			<span id="one" class="active">循环切换</span>
+			<span id="two">单边切换</span>
+		</div>
+		<div class="banner">
+			<div class="pic">
+				<img class="show" src="img/1.png" alt="">
+				<img src="img/2.png" alt="">
+				<img src="img/3.jpg" alt="">
+				<img src="img/4.jpg" alt="">
+				<img src="img/5.jpg" alt="">
+				<img src="img/6.jpg" alt="">
+			</div>
+			<p class="top"><span>1</span>/6</p>
+			<p class="left ">上一张</p>
+			<p class="right">下一张</p>
+			<p class="bottom">第<span>一</span>张图片</p>
+		</div>
+	</div>
+	<script>
+		var aBtnspan = document.querySelectorAll("#box .btn span"),
+			oLeft = document.querySelector("#box .banner p.left"),
+			oRight = document.querySelector("#box .banner p.right"),
+			aImg = document.querySelectorAll("#box .banner .pic img"),
+			oTop = document.querySelector("#box .banner p.top span"),
+			oBottom = document.querySelector("#box .banner p.bottom span"),
+			aText = [ "一" , "二" , "三" , "四" , "五" , "六" ],
+			goudan = 0,
+			length = aImg.length,
+			flag = true;
+
+		//点击改变模式
+		aBtnspan[0].onclick = function(){
+			this.className = 'active';
+			aBtnspan[1].className = "";
+			flag = true;
+		};
+		aBtnspan[1].onclick = function(){
+			this.className = 'active';
+			aBtnspan[0].className = "";
+			flag = false;
+		};
+
+		//右按钮点击
+		oRight.fuyanbin = true;
+		oRight.onclick = dachui;
+		//左按钮点击
+		oLeft.fuyanbin = false;
+		oLeft.onclick = dachui; 
+
+		function dachui(){
+			aImg[goudan].className = "";
+			if(this.fuyanbin){
+				goudan++;
+				if (goudan>=length){
+					if (flag){
+						goudan = 0;}else{
+							goudan = 5;
+							alert("已经到最后一张了！");
+					}
+				}
+			}else{
+				goudan--;
+				if (goudan<0){
+					if(flag){
+						goudan = length-1;}else{
+							goudan = 0;
+							alert("已经到最后一张了！");
+					}
+				}
+			};
+			aImg[goudan].className = 'show';
+			oTop.innerHTML = goudan+1;
+			oBottom.innerHTML = aText[goudan];
+		};
+	</script>
+</body>
+</html>
