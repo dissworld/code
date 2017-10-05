@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		.text
+		{
+			display: inline-block;
+			width:50px; 
+			height: 20px;
+			margin:5px;
+			background: pink;
+			color: #aaa;
+			border: 1px solid blue;
+			font-weight: bold;
+			font-size: 12px;
+			line-height: 20px;
+			text-align: center;
+		}
+		.line
+		{
+			width: 100%;
+			border: 1px solid #eee;
+			background: #eee;
+		}
+	</style>
+</head>
+<body>
+	<div id="box"></div>
+	<script>
+		var oBox = document.getElementById("box");
+		var chen = 0;
+
+		//第一种排列方式
+		for (var i = 0; i < 9; i++) {
+			for (var j = 0; j < i+1; j++) {
+				chen = (i+1)*(j+1);
+				oBox.innerHTML += '<p class="text">'+(i+1)+'*'+(j+1)+'='+chen+'</p>';
+			}
+			oBox.innerHTML += "<br>";
+		}	
+		oBox.innerHTML += "<br>";
+		oBox.innerHTML +='<div class="line"></div>';
+		oBox.innerHTML += "<br>";
+		//第二种排列方式
+		for (var i = 0; i < 9; i++) {
+			for (var j = 0; j < 9-i; j++) {
+				chen = (i+1)*(j+1);
+				oBox.innerHTML += '<p class="text">'+(i+1)+'*'+(j+1)+'='+chen+'</p>';
+			}
+			oBox.innerHTML += "<br>";
+		}	
+		oBox.innerHTML += "<br>";
+		oBox.innerHTML +='<div class="line"></div>';
+		oBox.innerHTML += "<br>";
+		//第三种排列方式
+		for (var i = 0; i < 9; i++) {
+			for (var j = 0; j < 9-i; j++) {
+				chen = (9-i)*(j+1);
+				oBox.innerHTML += '<p class="text">'+(9-i)+'*'+(j+1)+'='+chen+'</p>';
+			}
+			oBox.innerHTML += "<br>";
+		}
+		oBox.innerHTML += "<br>";
+		oBox.innerHTML +='<div class="line"></div>';
+		oBox.innerHTML += "<br>";
+		//第四种排列方式
+		for (var i = 0; i < 9; i++) {
+			for (var j = 0; j < i+1; j++) {
+				chen = (9-i)*(9-j);
+				oBox.innerHTML += '<p class="text">'+(9-i)+'*'+(9-j)+'='+chen+'</p>';
+			}
+			oBox.innerHTML += "<br>";
+		}	
+	</script>
+</body>
+</html>
