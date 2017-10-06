@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		*{margin: 0;padding: 0;}
+		li{list-style:none;}
+		#box{
+			width: 1000px;
+			margin: 50px auto;
+			border-collapse: collapse;
+			border: 1px solid #333;
+		}
+		#box .title{
+			position: relative;
+			z-index: 2;
+			width: 100%;
+			height: 40px;
+			background: #f8f8f8;
+		}
+		#box .title ul li{
+			float: left;
+			position: relative;
+			width: 75px;
+			height: 40px;
+			line-height: 40px;
+			text-align: center;
+			font-size: 12px;
+			cursor: pointer;
+		}
+		#box .title ul li span.red{
+			color: red;
+		}
+		#box .title ul li .hide{
+			display: none;
+			position: absolute;
+			top: -1px;
+			left: 0px;
+			width: 100px;
+			height: 80px;
+			background: #fff;
+			border: 1px solid #ddd; 
+		}
+		#box .title ul li .hide a{
+			display: block;
+			width: 100%;
+			height: 40px;
+			line-height: 40px;
+		}
+		#box .content ul{
+			overflow: hidden;
+		}
+		#box .content ul li{
+			position: relative;
+			float: left;
+			margin:14px;
+			padding:10px;
+			width: 200px;
+			height: 230px;
+			border: 1px solid #ddd;
+		}
+		#box .content ul li img{
+			width: 200px;
+			height: 200px;
+		}
+		#box .content ul li p{
+			font-size: 12px;
+			line-height: 20px;
+			margin-top: 5px;
+		}
+		#box .content ul li .txt{
+			position: absolute;
+			bottom: 0px;
+			right: 0px;
+			width: 50px;
+			height: 50px;
+			line-height: 50px;
+			text-align: center;
+			font-weight: bold;
+			color: yellow;
+			background-image: url("img/price.png");
+		}
+	</style>
+</head>
+<body>
+	<div id="box">
+		<div class="title">
+			<ul>
+				<li>流行</li>
+				<li>热销</li>
+				<li>上新</li>
+				<li class="point" >
+					<span>价格</span>
+					<div class="hide">
+						<a>价格从高到低</a>
+						<a>价格从低到高</a>
+					</div>
+				</li>
+			</ul>
+		</div>
+		<div class="content">
+			<ul>
+				<li>
+					<img src="img/xh_img1.jpg" alt="">
+					<p>1号商品</p>
+					<div class="txt">￥<span>500</span></div>
+				</li>
+				<li>
+					<img src="img/xh_img2.jpg" alt="">
+					<p>2号商品</p>
+					<div class="txt">￥<span>100</span></div>
+				</li>
+				<li>
+					<img src="img/xh_img3.jpg" alt="">
+					<p>3号商品</p>
+					<div class="txt">￥<span>300</span></div>
+				</li>
+				<li>
+					<img src="img/xh_img4.jpg" alt="">
+					<p>4号商品</p>
+					<div class="txt">￥<span>700</span></div>
+				</li>
+				<li>
+					<img src="img/xh_img5.jpg" alt="">
+					<p>5号商品</p>
+					<div class="txt">￥<span>130</span></div>
+				</li>
+				<li>
+					<img src="img/xh_img6.jpg" alt="">
+					<p>6号商品</p>
+					<div class="txt">￥<span>215</span></div>
+				</li>
+				<li>
+					<img src="img/xh_img7.jpg" alt="">
+					<p>7号商品</p>
+					<div class="txt">￥<span>97</span></div>
+				</li>
+				<li>
+					<img src="img/xh_img8.jpg" alt="">
+					<p>8号商品</p>
+					<div class="txt">￥<span>99.5</span></div>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<script>
+		//程序模块化
+		(function(){
+			var oBox = document.getElementById("box"),
+				oPoint = oBox.querySelector(".title ul .point"),
+				oHide = oBox.querySelector(".title ul .point .hide"),
+				aSpan = oBox.querySelector(".title ul .point span"),
+				aHideA = oHide.querySelectorAll("a"),
+				oSpan = oBox.querySelectorAll(".content ul li .txt span"),
+				oContent = oBox.querySelector(".content"),
+				oUl = oContent.querySelector("ul"),
+				aContentLi = oUl.querySelectorAll("ul li"),
+				arrLi = [],
+				length = aContentLi.length;
+
+				//事先存好每个商品的信息				
+				for (var i = 0; i < aContentLi.length; i++) {
+					arrLi[i] = [];
+					arrLi[i][0] = i+1;
+					arrLi[i][1] = aContentLi[i].querySelector("p").innerHTML;
+					arrLi[i][2] = Number(aContentLi[i].querySelector(".txt span").innerHTML);
+				}
+				console.log(arrLi);
+				//鼠标移入价格这个li，隐藏的div显示
+				oPoint.onmouseenter = function(){
+					oHide.style.display = "block";
+				}
+				//鼠标移出价格这个li，div重新隐藏
+				oPoint.onmouseleave = function(){
+					oHide.style.display = "none";
+				}
+				//替换span标签里面的“价格”替换成“从高到低”或者“从低到高”
+				for (var i = 0; i < aHideA.length; i++) {
+					aHideA[i].x = i;
+					aHideA[i].onclick = function(){
+						oHide.style.display = "none";
+						aSpan.className = "red";
+						aSpan.innerHTML = this.innerHTML;
+						fyb(this.x);
+					}
+				}
+				function fyb(index){
+					arrLi.sort(function(a,b){						
+						return index?a[2]-b[2]:b[2]-a[2];
+					});
+					oUl.innerHTML = "";
+					for (i = 0; i < length; i++) {
+						oUl.innerHTML += '<li><img src="img/xh_img'+arrLi[i][0]+'.jpg" alt="" /> <p>'+arrLi[i][1]+'</p><div class = "txt">￥<span>'+arrLi[i][2]+'</span></div> </li>';
+					}
+				} 
+				//数组两两比较用sort,并且是取决于return的值 格式:数组.sort( funct (){} ); 
+		})();	
+	</script>
+</body>
+</html>
