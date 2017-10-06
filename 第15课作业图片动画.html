@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		*{margin: 0;padding: 0;}
+		li{list-style: none;}
+		#box{
+			position: relative;
+			width: 220px;
+			height: 400px;
+			margin: 50px auto;
+		}
+		#box p{
+			position: absolute;
+			left: 0;
+			width: 100%;
+			height: 30px;
+			line-height: 30px;
+			text-align: center;
+			color: #fff;
+			background: #000;
+			font-weight: bold;
+			font-size: 14px;
+		}
+		#box #up{
+			top: 0;
+		}
+		#box #down{
+			bottom: 0;
+		}
+		#content{
+			position: absolute;
+			overflow: hidden;
+			width: 100%;
+			top: 30px;
+			left: 0;
+			height: 340px;
+		}
+		#content img{
+			width: 220px;
+			display: block;
+		}
+		#goudan{
+			position: absolute;
+			top: 0;
+			left: 0;
+			height: 707px;
+		}
+	</style>
+</head>
+<body>
+	<div id="box">
+		<p id="up">向上</p>
+		<div id="content">
+			<div id="goudan">
+				<img src="img/1.png" alt="">
+				<img src="img/2.png" alt="">
+				<img src="img/3.png" alt="">
+			</div>	
+		</div>
+		<p id="down">向下</p>
+	</div>
+	<script>
+		var oUp = document.getElementById('up'),
+			oDown = document.getElementById('down'),
+			oGoudan = document.getElementById('goudan'),
+			start = 0,
+			min = -(707-340),
+			max = 0,
+			timer = null;
+
+		oUp.onmousedown = function(){
+			timer = setInterval(
+				function(){
+					start -= 2;
+					start = Math.max(start,min);
+					oGoudan.style.top = start + 'px';
+				},13);	
+		}
+		oDown.onmousedown = function(){
+			timer = setInterval(
+				function(){
+					start += 2;
+					start = Math.min(start,max);
+					oGoudan.style.top = start + 'px';
+				},13);	
+		}
+		document.onmouseup = function(){
+			clearInterval(timer);
+		}
+	</script>
+</body>
+</html>
